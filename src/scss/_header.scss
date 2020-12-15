@@ -1,0 +1,26 @@
+.ha__header {
+  .blog-name {
+    color: #{var(--color-text-primary)};
+    font-size: 1.5rem;
+    padding-bottom: 0;
+  }
+  .ha__header-navbar {
+    background-color: #{var(--background-color)};
+    .navbar-nav {
+      .nav-item {
+        .nav-link {
+          color: #{var(--color-text-primary)};
+          padding-bottom: 0;
+        }
+      }
+    }
+  }
+  &-right {
+    .btn {
+      color: #{var(--color-text-primary)};
+    }
+    &-search {
+      background-color: transparent;
+    }
+  }
+}

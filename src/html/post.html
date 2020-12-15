@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="ha__body">
+<header class="ha__header">
+  <nav class="ha__header-navbar navbar fixed-top navbar-expand-lg shadow-lg py-3">
+    <div class="container">
+      <a class="blog-name navbar-brand" href="/">淮城一只猫</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbar-supported-content"
+        aria-controls="navbar-supported-content"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar-supported-content">
+        <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/youth">首页</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="post-full.html">全宽详细页</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="post.html">普通详细页</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">菜单正在优化</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">菜单5</a>
+          </li>
+        </ul>
+        <div class="d-flex ha__header-right">
+          <button type="button" class="btn ha__header-right-search search-click-action">
+            <i class="fas fa-search"></i>
+          </button>
+          <button type="button" class="btn ha__header-right-style dark-click-action">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<main class="ha__main">
+  <section class="ha__main-hero ha__main-hero-article d-flex justify-content-center align-items-center">
+    <div class="ha__main-hero-picture"></div>
+  </section>
+  <section class="ha__main-article">
+    <div class="container">
+      <h3 class="ha__main-article-title mt-5 text-center">
+        对 JavaScript Object 的一些思考
+      </h3>
+      <div class="ha__main-article-description mt-3 text-center">
+        <span class="meta meta-title">淮城一只猫</span>
+        <span class="meta-cut">•</span>
+        <time class="meta-title title-date-time" datetime="2020.12.03">2020年12月03日</time>
+        <span class="meta-cut">•</span>
+        <span class="meta meta-tag">编程技术</span>
+        <span class="meta-cut">•</span>
+        <span class="meta meta-read">阅读量 2568</span>
+      </div>
+      <div class="ha__main-article-main my-5 row">
+        <div class="col">
+          <article class="ha__main-article-content">
+            <h3 id="前言">前言</h3>
+            <p>前几天在做项目的时候遇到一个关于数组的问题，今天抽空来看看这个问题，因为之前也遇到，但是不长记性所有有了该笔记。之前在项目给后端提交一条数据，这个数据是数组类型，但需要改变数组里面的字段又不能改变原来的数组结构，所有我直接赋值新的变量再 <code>Map</code> 遍历修改的时候发现原来的数组结构已经发生改变了。虽然知道其中的原因，所以决定写下笔记，告诫下次不能再犯了。</p>
+            <h3 id="思考">思考</h3>
+            <p>先看一段简单的例子：</p>
+            <pre><code class="language-javascript">const arr1 = [1, 2, 3];
+const arr2 = arr1;
+arr2.push(4);
+console.log(arr1); // =&gt; [1, 2, 3, 4]
+console.log(arr2); // =&gt; [1, 2, 3, 4]</code></pre>
+            <p>如果不仔细思考的话，<code>arr1</code> 的结果令人“惊讶”的，学过后端语言的朋友相信都知道这个答案，很显然在 <code>JavaScript</code> 中，数组它是<strong>引用传递</strong>，所有的对象（Array 也是 对象）也是<strong>引用传递</strong>。所以意味着在使用等号赋值的时候，俩者引用内存同一个地址值，无论其中一个怎么操作，另一个反馈是同样的结果。</p>
+            <p>如果换个方式来理解这个引用传递：</p>
+            <pre><code class="language-javascript">const obj1 = {a: &#39;test&#39;};
+const obj2 = {a: &#39;test&#39;};
+console.log(obj1 === obj2); // =&gt; false</code></pre>
+            <p>在 <code>MDN</code> 文档对此解释：</p>
+            <blockquote>
+              <p>当两个操作数都是对象时，JavaScript会比较其内部引用，当且仅当他们的引用指向内存中的相同对象（区域）时才相等，即他们在栈内存中的引用地址相同。</p>
+            </blockquote>
+            <p>上述声明的 <code>obj1</code> 和 <code>obj2</code> 在声明初始化的时候，在内存中开辟俩个新的地址值，所以在比较的时候，其实是比较俩个地址值是否相等，所以最终会输出 <code>false</code> 结果：</p>
+            <table>
+              <thead>
+              <tr>
+                <th align="center">变量名</th>
+                <th align="center">地址值</th>
+                <th align="center">对象</th>
+              </tr>
+              </thead>
+              <tbody><tr>
+                <td align="center">obj1</td>
+                <td align="center">#001</td>
+                <td align="center">{a: &#39;test&#39;}</td>
+              </tr>
+              <tr>
+                <td align="center">obj2</td>
+                <td align="center">#002</td>
+                <td align="center">{a: &#39;test&#39;}</td>
+              </tr>
+              </tbody></table>
+            <h3 id="比较对象">比较对象</h3>
+            <h4 id="字符串比较">字符串比较</h4>
+            <p>其实这个就是将对象使用 <code>JSON.stringify</code> 转换成静态字符串，然后再比较：</p>
+            <pre><code class="language-javascript">// 使用上例变量
+const str1 = JSON.stringify(obj1);
+const str2 = JSON.stringify(obj2);
+console.log(str1 === str2); // =&gt; true</code></pre>
+            <p>虽然这个是最简单方法，但是使用限制也很大，如果对象里面的键值是乱序的，那么这个对比是没啥意义的，例如：</p>
+            <pre><code class="language-javascript">const obj3 = {
+    test1: &#39;test1&#39;,
+    test2: &#39;test2&#39;
+};
+const obj4 = {
+    test2: &#39;test2&#39;,
+    test1: &#39;test1&#39;
+};
+
+console.log(JSON.stringify(obj3) === JSON.stringify(obj4)); // =&gt; false</code></pre>
+            <p> 俩个对象是一样的，但返回结果却是 <code>false</code> ，所以这个对比看情况使用，那么需要做个方法，不受到键值顺序影响对比。</p>
+            <h4 id="使用对象属性遍历对比">使用对象属性遍历对比</h4>
+            <p>把对象的 <code>key</code> 提取组成数组，然后对应对象中的 <code>value</code> 是否相等：</p>
+            <pre><code class="language-javascript">const isObjectEqual = (obj1, obj2) =&gt; {
+    // 获取对象属性名数组
+    const getAProperty1 = Object.getOwnPropertyNames(obj1);
+    const getAProperty2 = Object.getOwnPropertyNames(obj2);
+
+    // 如果获取的属性名数组长度不一样，这说明俩者对象内容不一样
+    if (getAProperty1.length !== getAProperty2.length) {
+        return false;
+    }
+
+    // 然后遍历里面的属性值是否相等
+    for (let i = 0; i &lt; getAProperty1.lenth; i++) {
+        if (obj1[i] !== obj2[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+console.log(isObjectEqual(obj3, obj4)); // =&gt; true</code></pre>
+            <p>所以上面那个顺序问题对比解决了，这边主要用到 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames">Object.getOwnPropertyNames</a> 方法，不过这个也注定只能提取第一层次的 <code>key</code> ，如果对象的属性值包含一个对象，那么这个方法依然不通过，并且还有诸多原因：</p>
+            <p>例如可能有这样的情况：</p>
+            <pre><code class="language-javascript">const obj5 = {
+    test1: &#39;test1&#39;,
+    test2: &#39;test2&#39;
+};
+const obj6 = {
+    test2: &#39;test2&#39;,
+    test1: NaN
+}
+
+console.log(isObjectEqual(obj5, obj6)); // =&gt; true
+
+const obj7 = {
+    test1: &#39;test1&#39;,
+    test2: &#39;test2&#39;,
+    undefined: null
+};
+const obj8 = {
+    test2: &#39;test2&#39;,
+    test1: &#39;test1&#39;,
+    test3: &#39;&#39;
+}
+
+console.log(isObjectEqual(obj7, obj8)); // =&gt; true
+
+
+const obj9 = {
+    test1: &#39;test1&#39;,
+    test2: &#39;test2&#39;,
+    test3: {
+        a: &#39;hello&#39;
+    }
+};
+const obj10 = {
+    test2: &#39;test2&#39;,
+    test1: &#39;test1&#39;,
+    test3: {
+        b: &#39;world&#39;
+    }
+}
+
+console.log(isObjectEqual(obj9, obj10)); // =&gt; true</code></pre>
+            <p>一下子排出三个特例情况，明明不一样的对象，全都返回 <code>true</code>，那么在更复杂的业务情况下，上面的方法不合适了。</p>
+            <h4 id="通用函数">通用函数</h4>
+            <p>所以想要验证俩个对象是否相等是一件不容易的事情，因为 <code>JavaScript</code> 原因导致他们的数据类型验证很奇怪，这边就不细说，具体可以阅读下这篇文章：<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Equality_comparisons_and_sameness">JavaScript 中的相等性判断</a> ，如果要去验证俩者是否相等需要做到如下要求：</p>
+            <pre><code class="language-javascript">console.log(NaN === NaN); // =&gt; false
+console.log([1] === [1]); // =&gt; false
+console.log({value: 1} === {value: 1}); // =&gt; false
+console.log(1 === new Number(1)); // =&gt; false
+console.log(&#39;hello&#39; === new String(&#39;hello&#39;)); // =&gt; false
+console.log(true === new Boolean(true)); // =&gt; false</code></pre>
+            <p>但在我们认知里，应该是</p>
+            <ul>
+              <li><code>NaN</code> 和 <code>NaN</code> 是相等的；</li>
+              <li><code>[1]</code> 和  <code>[1]</code> 是相等的；</li>
+              <li><code>{value: 1}</code> 和 <code>{value: 1}</code> 是相等的；</li>
+              <li><code>1</code> 和 <code>new Number(1)</code> 是相等的；</li>
+              <li>...</li>
+            </ul>
+            <p>所以要针对上面的现象需要做很多判断，下面的写的例子可以参考下:</p>
+            <pre><code class="language-javascript">/**
+ * 对比俩条数据
+ * @param {*} obj1
+ * @param {*} obj2
+ */
+const isEqualObject = (obj1, obj2) =&gt; {
+    // 声明 obj1 对象类型
+    const type = Object.prototype.toString.call(obj1);
+
+    // 首先先判断这俩者对象的类型
+    // 使用 Object.prototype.toString.call 方法获取数据类型，如果俩者类型不一样，则数据不一样
+    if (type !== Object.prototype.toString.call(obj2)) return false;
+
+    // 到这里俩者对象类型确定下来了，所以继续往下面判断
+    // 现在判断 type 是对象还是数组，使用 Array.typeOf() 判断
+    if ([&#39;[object Object]&#39;, &#39;[object Array]&#39;].indexOf(type) &lt; 0) return false;
+
+    // 无论是对象还是数组，获取他们的长度
+    // 如果是数组直接获取数组长度的方法，否则使用 Object.keys() 获取对象键值长度
+    // 注意：Object.keys() 支持 IE9 以上的现代浏览器，如果需要向后兼容使用 Polyfill 实现
+    const obj1Length = type === &#39;[object Object]&#39; ? obj1.length : Object.keys(obj1).length;
+    const obj2Length = type === &#39;[object Object]&#39; ? obj2.length : Object.keys(obj2).length;
+
+    // 如果长度不一样，返回 false
+    if (obj1Length !== obj2Length) return false;
+
+    // 到目前为止，基本检查通过了，也确定长度是一样的，下面进行对象的属性值
+    // 由于对象和数组遍历方法不一样，需要判断下类型
+    // 对比属性值都一样，直接复用一个函数来比较
+
+    /**
+     * 属性对比
+     * @param {*} item1 obj1 属性值
+     * @param {*} item2 obj2 属性值
+     */
+    const compare = (item1, item2) =&gt; {
+
+        // 获取 item1 的数据类型
+        const itemType = Object.prototype.toString.call(item1);
+
+        // 如果是对象或者数组的话，递归 isEqualObject() 方法继续判断
+        if ([&#39;[object Object]&#39;, &#39;[object Array]&#39;].indexOf(itemType) &gt;= 0) {
+            if (!isEqualObject(item1, item2)) return false;
+        } else {
+            // 否则是其他类型的数据，直接对比数据类型
+            if (itemType !== Object.prototype.toString.call(item2)) return false;
+
+            // 如果对比的属性值是函数，需要转换字符串类型再进行判断
+            // 判断是否是函数
+            if (itemType === &#39;[object Function]&#39;) {
+                // 转换字符串对比
+                if (item1.toString() !== item2.toString()) return false;
+            } else {
+                // 其它数据类型对比
+                if (item1 !== item2) return false;
+            }
+        }
+    }
+
+    // 对比 obj1 和 obj2 的属性值
+    if (type === &#39;[object Object]&#39;) {
+        for (const key in obj1) {
+            if (obj1.hasOwnProperty(key)) {
+                // 传人属性值
+                if (compare(obj1[key], obj2[key]) === false) return false
+            }
+        }
+    } else {
+        for (let i = 0; i &lt; obj1Length; i++) {
+            // 传人属性值
+            if (compare(obj1[i], obj2[i]) === false) return false;
+        }
+    }
+
+    // 测试通过
+    return true;
+}</code></pre>
+            <p>然后来测试下效果：</p>
+            <pre><code class="language-javascript">const obj11 = {
+    test1: &#39;test1&#39;,
+    test2: &#39;test2&#39;,
+    test3: {
+        a: &#39;hello&#39;
+    }
+};
+const obj12 = {
+    test2: &#39;test2&#39;,
+    test1: &#39;test1&#39;,
+    test3: {
+        a: &#39;hello&#39;
+    }
+}
+
+console.log(isEqualObject(obj9, obj10)); // =&gt; false
+console.log(isEqualObject(obj11, obj12)); // =&gt; true</code></pre>
+            <p>到此为止，相信上面封装的函数能够解决大部分问题了。</p>
+            <p>但建议还是使用 <a href="https://github.com/lodash/lodash/blob/4.5.0-npm-packages/lodash.isequal/index.js">Lodash.isEqual</a> 和 <a href="https://github.com/jashkenas/underscore/blob/master/underscore.js#L1194-L1302">Underscore.isEqual</a> 来解决复杂业务的情景吧。</p>
+            <h3 id="拷贝对象">拷贝对象</h3>
+            <p>上面说的复制过程是 <code>浅拷贝</code> ，如果想实现新的内存地址的对象，那么这就是 <code>深拷贝</code> 过程。</p>
+            <h4 id="浅拷贝">浅拷贝</h4>
+            <p>被复制对象的所有变量都含有与原来的对象相同的值，而所有的对其他对象的引用仍然指向原来的对象。浅拷贝仅仅复制原有的对象，而不复制它所引用的对象，如果修改了<code>副本</code>的值，那么原来的对象也会被修改。</p>
+            <h4 id="深拷贝">深拷贝</h4>
+            <p>如果需要深拷贝的可以试试这样的方法：</p>
+            <pre><code class="language-javascript">const arr3 = [1, 2, 3];
+const arr4 = JSON.parse(JSON.stringify(arr3));
+arr4.push(4);
+console.log(arr3); // [1, 2, 3]
+console.log(arr4); // [1, 2, 3, 4]</code></pre>
+            <blockquote>
+              <p>JSON.stringify 将 arr3 数组进行反序列化成字符串，然后再序列化字符串成新的对象，所以在 arr4 实现新的地址值，和 arr3 没关系了。</p>
+            </blockquote>
+            <p>但这个方法也有很大的缺陷，例如：</p>
+            <pre><code class="language-javascript">const arr3 = [
+    {
+        &#39;test&#39;: function() {
+            alert(&#39;xxx&#39;)
+        }
+    },
+    4,
+    3
+];
+const arr4 = JSON.parse(JSON.stringify(arr3));
+console.log(arr4); // [ {}, 4, 3 ]</code></pre>
+            <p>会发现 <code>Function</code> 的属性被忽略，当然还有包含 <code>undefined</code> 和 <code>Symbol</code> 属性也会被忽略。</p>
+            <pre><code class="language-javascript">/**
+ * 深度拷贝
+ * @param {Object} source
+ */
+const deepClone = (source) =&gt; {
+    // 判断数据类型，不是对象类型退出
+    if (!source &amp;&amp; typeof source !== &#39;object&#39;) {
+        throw new Error(&#39;error arguments&#39;)
+    }
+    // 判断是否是数组对象，对应不同的容器
+    const targetObj = source.constructor === Array ? [] : {}
+    Object.keys(source).forEach(keys =&gt; {
+        if (source[keys] &amp;&amp; typeof source[keys] === &#39;object&#39;) {
+            // 如果属性是对象继续递归
+            targetObj[keys] = deepClone(source[keys])
+        } else {
+            targetObj[keys] = source[keys]
+        }
+    })
+    return targetObj
+}
+
+const arr5 = deepClone(arr3);
+console.log(arr5); // [ { test: [Function: test] }, 4, 3 ]</code></pre>
+            <p>上面封装的函数可以应付大部分需求了。</p>
+            <h3 id="总结">总结</h3>
+            <ul>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures">JavaScript 数据类型和数据结构</a></li>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Equality_comparisons_and_sameness">JavaScript 中的相等性判断</a></li>
+              <li><a href="http://dorey.github.io/JavaScript-Equality-Table/">JS 比较表</a></li>
+              <li><a href="https://github.com/lodash/lodash/tree/4.5.0-npm-packages/lodash.isequal">lodash.isequal</a></li>
+              <li><a href="https://github.com/jashkenas/underscore/blob/master/underscore.js">underscore.js</a></li>
+            </ul>
+          </article>
+        </div>
+        <div class="col-12 col-xl-2">
+          <div class="ha__article-sidebar">
+            <aside class="toc-container toc d-none d-xl-block"></aside>
+            <div class="ha__article-share d-xl-flex flex-row flex-xl-column mt-3 text-center text-xl-left">
+              <a
+                data-toggle="tooltip"
+                data-placement="right"
+                title="分享到微博"
+                href="#"
+                class="ha__article-share-item btn d-inline-flex justify-content-center align-items-center mt-0 mt-xl-3 mx-2 mx-xl-0 shadow"
+              >
+                <i class="fab fa-weibo share-icon"></i>
+              </a>
+              <a
+                data-toggle="tooltip"
+                data-placement="right"
+                title="分享到QQ"
+                href="#"
+                class="ha__article-share-item btn d-inline-flex justify-content-center align-items-center mt-0 mt-xl-3 mx-2 mx-xl-0 shadow"
+              >
+                <i class="fab fa-qq share-icon"></i>
+              </a>
+              <a
+                data-toggle="tooltip"
+                data-placement="right"
+                title="扫一扫分享到微信"
+                href="#"
+                class="ha__article-share-item btn d-inline-flex justify-content-center align-items-center mt-0 mt-xl-3 mx-2 mx-xl-0 shadow"
+              >
+                <i class="fab fa-weixin share-icon"></i>
+              </a>
+              <a
+                data-toggle="tooltip"
+                data-placement="right"
+                title="分享到 Twitter"
+                href="#"
+                class="ha__article-share-item btn d-inline-flex justify-content-center align-items-center mt-0 mt-xl-3 mx-2 mx-xl-0 shadow"
+              >
+                <i class="fab fa-twitter share-icon"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="ha__main-divider">
+    <div class="meow">喵~</div>
+  </div>
+  <div class="container">
+    <section class="ha__main-author d-flex flex-row align-items-center">
+      <div class="ha__main-author-picture">
+        <a href="#">
+          <img
+            src="https://gravatar.loli.net/avatar/4f6d6e259391f7b3d3ae8335a8cafeed?size=500"
+            class="author-image rounded-circle"
+            alt="头像"
+          >
+        </a>
+      </div>
+      <div class="ha__main-author-content">
+        <div class="author-name">淮城一只猫</div>
+        <div class="author-description">永远年轻，永远热泪盈眶！</div>
+      </div>
+    </section>
+  </div>
+  <div class="container">
+    <section class="ha__main-read-more ha__main-post-list">
+      <div class="ha__main-post-list-row row justify-content-center my-5">
+        <div class="col-12 col-md-6 col-xl-4">
+          <div class="ha__main-post-item ha__main-post-item-normal h-100 card border-0 shadow rounded-bottom">
+            <img src="https://liebling.eduardogomez.io/content/images/size/w600/2020/06/2.jpg" class="card-img-top rounded-top" alt="图片">
+            <a href="#" class="card-post-meta-author-link">
+              <img
+                data-toggle="tooltip"
+                data-placement="top"
+                title="淮城一只猫"
+                src="https://gravatar.loli.net/avatar/4f6d6e259391f7b3d3ae8335a8cafeed?size=500"
+                class="rounded-circle card-post-meta-author"
+                alt="头像"
+              >
+            </a>
+            <div class="card-body">
+              <div class="card-post-meta-tag mb-3">
+                <a href="#" class="tag-name">生活日志</a>
+              </div>
+              <h5 class="card-title mb-3">这是一段文章标题</h5>
+              <p class="card-text mb-5">
+                这是文章内容这是文章内容这是文章内容，这是文章内容这是文章内容这是文章内容，
+                这是文章内容这是文章内容这是文章内容这是文章内容，这是文章内容这是文章内容这是文章内容，
+                这是文章内容这是文章内容这是文章内容这是文章内容，这是文章内容这是文章内容这是文章内容，
+                这是文章内容
+              </p>
+              <div class="card-time">
+                <time class="date-time" datetime="2020.12.03">2020年12月03日</time>
+                <span class="break mx-1">•</span>
+                <span class="read-time">3 分钟阅读</span>
+              </div>
+              <a href="#" class="stretched-link"></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-4">
+          <div class="ha__main-post-item ha__main-post-item-normal h-100 card border-0 shadow rounded-bottom">
+            <img src="https://liebling.eduardogomez.io/content/images/size/w600/2020/06/4.jpg" class="card-img-top rounded-top" alt="图片">
+            <a href="#" class="card-post-meta-author-link">
+              <img
+                data-toggle="tooltip"
+                data-placement="top"
+                title="淮城一只猫"
+                src="https://gravatar.loli.net/avatar/4f6d6e259391f7b3d3ae8335a8cafeed?size=500"
+                class="rounded-circle card-post-meta-author"
+                alt="头像"
+              >
+            </a>
+            <div class="card-body">
+              <div class="card-post-meta-tag mb-3">
+                <a href="#" class="tag-name">生活日志</a>
+              </div>
+              <h5 class="card-title mb-3">这是一段文章标题这是一段文章标题这是一段文章标题这是一段文章标题</h5>
+              <p class="card-text mb-5">这是文章内容这是文章内容这是文章内容，这是文章内容这是文章内容这是文章内容，这是文章内容</p>
+              <div class="card-time">
+                <time class="date-time" datetime="2020.12.03">2020年12月03日</time>
+                <span class="break mx-1">•</span>
+                <span class="read-time">3 分钟阅读</span>
+              </div>
+              <a href="#" class="stretched-link"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="ha__main-to-top d-flex justify-content-center align-items-center flex-column shadow animated">
+    <i class="fas fa-chevron-up to-top-icon"></i>
+    <svg class="reading-progress-svg" aria-hidden="true" viewBox="0 0 50 50">
+      <circle
+        class="reading-progress-circle"
+        fill="transparent"
+        r="23.5"
+        stroke-width="3"
+        cx="25"
+        cy="25"
+      >
+      </circle>
+    </svg>
+  </div>
+</main>
+<footer class="ha__footer">
+  <ul class="nav justify-content-center ha__footer-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="#">链接1</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">链接2</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">链接3</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">链接4</a>
+    </li>
+  </ul>
+  <ul class="nav justify-content-center ha__footer-social">
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fab fa-qq"></i></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fab fa-weixin"></i></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fab fa-weibo"></i></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fab fa-twitter"></i></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fab fa-facebook-f"></i></a>
+    </li>
+  </ul>
+  <div class="w-100 d-flex justify-content-center ha__footer-copyright">
+    <span>❤️ Young Theme &copy; 2020</span>
+    <span>&nbsp; • &nbsp;</span>
+    <span>Published with <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a></span>
+  </div>
+</footer>
+<div class="ha__search position-fixed animated">
+  <button type="button" class="search-close" aria-label="close">
+    <i class="fas fa-times"></i>
+  </button>
+  <div class="input-group mb-3 search-area">
+    <span class="input-group-text" id="search"><i class="fas fa-search"></i></span>
+    <input type="text" class="form-control" placeholder="请输入搜索关键词..." aria-label="search" aria-describedby="search">
+  </div>
+  <div class="search-tags">
+    <a
+      href="post.html"
+      class="tag-item"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      title="查看关于 标签1 标签的文章"
+    >
+      标签1
+    </a>
+    <a
+      href="#"
+      class="tag-item"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      title="查看关于 标签2 标签的文章"
+    >
+      标签2
+    </a>
+    <a
+      href="#"
+      class="tag-item"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      title="查看关于 标签3 标签的文章"
+    >
+      标签3
+    </a>
+    <a
+      href="#"
+      class="tag-item"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      title="查看关于 标签4 标签的文章"
+    >
+      标签4
+    </a>
+  </div>
+</div>
+<!-- Separate Popper and Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+<script src="index.js"></script>
+</body>
+</html>

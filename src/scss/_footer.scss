@@ -1,0 +1,31 @@
+.ha__footer {
+  width: 100%;
+  padding: 5rem 0;
+  background-color: #{var(--footer-background-color)};
+
+  &-nav {
+    .nav-item {
+      .nav-link {
+        color: #{var(--footer-text-color)};
+      }
+    }
+  }
+
+  &-social {
+    .nav-item {
+      .nav-link {
+        font-size: 1.2rem;
+        color: #{var(--footer-text-color)};
+      }
+    }
+  }
+
+  &-copyright {
+    color: #{var(--footer-text-color)};
+    font-size: 0.8rem;
+    line-height: 3;
+    a {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+}
