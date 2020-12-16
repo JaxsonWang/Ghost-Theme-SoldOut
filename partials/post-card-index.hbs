@@ -1,0 +1,86 @@
+{{!-- 文章列表的每个文章展示元素 --}}
+<div class="col-12 {{#if @first}}col-lg-12 col-xl-8{{else}}col-md-6 col-xl-4{{/if}}">
+  <div class="ha__main-post-item {{#if @first}}ha__main-post-item-big{{else}}ha__main-post-item-normal{{/if}} h-100 card border-0 shadow rounded overflow-hidden">
+    {{#if @first}}
+    {{!--todo: 特色图非空判断--}}
+      <div class="card-img-full"
+           srcset="{{img_url feature_image size="s"}} 300w,
+                    {{img_url feature_image size="m"}} 600w,
+                    {{img_url feature_image size="l"}} 1000w,
+                    {{img_url feature_image size="xl"}} 2000w"
+           sizes="(max-width: 1000px) 400px, 700px"
+           style="background-image: url('{{img_url feature_image size="m"}}')"
+           alt="{{title}}"
+      ></div>
+      <div class="card-post-meta">
+        {{!--todo: 多个作者存在--}}
+        {{#primary_author}}
+          <a href="{{url}}" class="card-post-meta-author-link">
+            <img data-toggle="tooltip"
+                 data-placement="top"
+                 title="{{name}}"
+                 src="{{img_url profile_image size="xs"}}"
+                 class="rounded-circle card-post-meta-author"
+                 alt="{{name}}"
+            />
+          </a>
+        {{/primary_author}}
+        {{!--todo: 标签非空判断--}}
+        {{#primary_tag}}
+          <div class="card-post-meta-tag">
+            <a href="{{url}}" class="tag-name">{{name}}</a>
+          </div>
+        {{/primary_tag}}
+      </div>
+      <div class="card-body d-flex flex-column justify-content-center">
+        <h5 class="card-title mt-5 mb-2 w-100">{{title}}</h5>
+        <p class="card-text">{{excerpt}}</p>
+        <div class="card-time">
+          <time class="date-time" datetime="{{date format="YYYY-MM-DD"}}">{{date format="YYYY年MM月DD日"}}</time>
+          <span class="break mx-1">•</span>
+          <span class="read-time">{{reading_time minute=(t "1 分钟阅读") minutes=(t "% 分钟阅读")}}</span>
+        </div>
+        <a href="{{url}}" class="stretched-link"></a>
+      </div>
+    {{else}}
+      {{!--todo: 特色图非空判断--}}
+      <img class="card-img-top"
+           srcset="{{img_url feature_image size="s"}} 300w,
+                    {{img_url feature_image size="m"}} 600w,
+                    {{img_url feature_image size="l"}} 1000w,
+                    {{img_url feature_image size="xl"}} 2000w"
+           sizes="(max-width: 1000px) 400px, 700px"
+           src="{{img_url feature_image size="m"}}"
+           alt="{{title}}"
+      />
+      {{!--todo: 多个作者存在--}}
+      {{#primary_author}}
+        <a href="{{url}}" class="card-post-meta-author-link">
+          <img data-toggle="tooltip"
+               data-placement="top"
+               title="{{name}}"
+               src="{{img_url profile_image size="xs"}}"
+               class="rounded-circle card-post-meta-author"
+               alt="{{name}}"
+          />
+        </a>
+      {{/primary_author}}
+      <div class="card-body">
+        {{!--todo: 标签非空判断--}}
+        {{#primary_tag}}
+          <div class="card-post-meta-tag mb-3">
+            <a href="{{url}}" class="tag-name">{{name}}</a>
+          </div>
+        {{/primary_tag}}
+        <h5 class="card-title mb-3">{{title}}</h5>
+        <p class="card-text mb-5">{{excerpt}}</p>
+        <div class="card-time">
+          <time class="date-time" datetime="{{date format="YYYY-MM-DD"}}">{{date format="YYYY年MM月DD日"}}</time>
+          <span class="break mx-1">•</span>
+          <span class="read-time">{{reading_time minute=(t "1 分钟阅读") minutes=(t "% 分钟阅读")}}</span>
+        </div>
+        <a href="{{url}}" class="stretched-link"></a>
+      </div>
+    {{/if}}
+  </div>
+</div>
