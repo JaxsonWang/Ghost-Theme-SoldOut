@@ -3,6 +3,9 @@
   margin-bottom: 2rem;
   .pagination {
     .page-item {
+      &.active .page-link {
+        background-color: #{var(--background-color-assist-2)};
+      }
       .page-link {
         border: none;
         color: #{var(--color-text-primary)};

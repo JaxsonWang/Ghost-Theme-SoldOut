@@ -8,6 +8,7 @@ import toc from './bootstrap/post-toc'
 import search from './bootstrap/search'
 import pjax from './bootstrap/pjax'
 import prefersColorScheme from './bootstrap/prefersColorScheme'
+import pagination from './bootstrap/pagination'
 
 // ele.scrollIntoView 兼容
 // Safari 无效需要引入 polyfill
@@ -21,3 +22,4 @@ toc()
 search()
 prefersColorScheme()
 pjax()
+pagination()
