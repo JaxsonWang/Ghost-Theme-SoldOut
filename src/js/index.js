@@ -14,6 +14,7 @@ import pagination from './bootstrap/pagination'
 // Safari 无效需要引入 polyfill
 smoothScroll.polyfill()
 
+pagination()
 tooltips()
 prism()
 toTop()
@@ -22,4 +23,3 @@ toc()
 search()
 prefersColorScheme()
 pjax()
-pagination()

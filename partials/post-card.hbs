@@ -1,17 +1,31 @@
 {{!-- 文章列表的每个文章展示元素 --}}
-<article class="col-12 {{#if @first}}col-lg-12 col-xl-8{{else}}col-md-6 col-xl-4{{/if}} {{post_class}}">
-  <div class="ha__main-post-item {{#if @first}}ha__main-post-item-big{{else}}ha__main-post-item-normal{{/if}} h-100 card border-0 shadow rounded overflow-hidden">
-    {{#if @first}}
-    {{!--todo: 特色图非空判断--}}
-      <div class="card-img-full"
-           srcset="{{img_url feature_image size="s"}} 300w,
+{{!-- ^is "paged" 判断当前页面是否第一页 --}}
+<article class="col-12 {{^is "paged"}}{{#if @first}}col-lg-12 col-xl-8{{else}}col-md-6 col-xl-4{{/if}}{{else}}col-md-6 col-xl-4{{/is}} {{post_class}}">
+  <div class="ha__main-post-item {{^is "paged"}}{{#if @first}}ha__main-post-item-big{{else}}ha__main-post-item-normal{{/if}}{{else}}ha__main-post-item-normal{{/is}} h-100 card border-0 shadow rounded overflow-hidden">
+    {{^is "paged"}}
+      {{#if @first}}
+      {{!--todo: 特色图非空判断--}}
+        <div class="card-img-full"
+             srcset="{{img_url feature_image size="s"}} 300w,
                     {{img_url feature_image size="m"}} 600w,
                     {{img_url feature_image size="l"}} 1000w,
                     {{img_url feature_image size="xl"}} 2000w"
-           sizes="(max-width: 1000px) 400px, 700px"
-           style="background-image: url('{{img_url feature_image size="m"}}')"
-           alt="{{title}}"
-      ></div>
+             sizes="(max-width: 1000px) 400px, 700px"
+             style="background-image: url('{{img_url feature_image size="m"}}')"
+             alt="{{title}}"
+        ></div>
+      {{else}}
+      {{!--todo: 特色图非空判断--}}
+        <img class="card-img-top"
+             srcset="{{img_url feature_image size="s"}} 300w,
+                    {{img_url feature_image size="m"}} 600w,
+                    {{img_url feature_image size="l"}} 1000w,
+                    {{img_url feature_image size="xl"}} 2000w"
+             sizes="(max-width: 1000px) 400px, 700px"
+             src="{{img_url feature_image size="m"}}"
+             alt="{{title}}"
+        />
+      {{/if}}
     {{else}}
     {{!--todo: 特色图非空判断--}}
       <img class="card-img-top"
@@ -23,7 +37,7 @@
            src="{{img_url feature_image size="m"}}"
            alt="{{title}}"
       />
-    {{/if}}
+    {{/is}}
     <div class="card-post-meta">
       {{!--todo: 多个作者存在--}}
       {{#primary_author}}
@@ -37,16 +51,18 @@
           />
         </a>
       {{/primary_author}}
-      {{#if @first}}
-      {{!--todo: 标签非空判断--}}
-        {{#primary_tag}}
-          <div class="card-post-meta-tag">
-            <a href="{{url}}" class="tag-name">{{name}}</a>
-          </div>
-        {{/primary_tag}}
-      {{/if}}
+      {{^is "paged"}}
+        {{#if @first}}
+          {{!--todo: 标签非空判断--}}
+          {{#primary_tag}}
+            <div class="card-post-meta-tag">
+              <a href="{{url}}" class="tag-name">{{name}}</a>
+            </div>
+          {{/primary_tag}}
+        {{/if}}
+      {{/is}}
     </div>
-    <div class="card-body{{#if @first}} d-flex flex-column justify-content-center{{/if}}">
+    <div class="card-body{{^is "paged"}}{{#if @first}} d-flex flex-column justify-content-center{{/if}}{{/is}}">
       {{#unless @first}}
       {{!--todo: 标签非空判断--}}
         {{#primary_tag}}
@@ -55,7 +71,7 @@
           </div>
         {{/primary_tag}}
       {{/unless}}
-      <h5 class="card-title {{#if @first}}mt-5 mb-2 w-100{{else}}mb-3{{/if}}">{{title}}</h5>
+      <h5 class="card-title {{^is "paged"}}{{#if @first}}mt-5 mb-2 w-100{{else}}mb-3{{/if}}{{else}}mb-3{{/is}}">{{title}}</h5>
       <p class="card-text {{#unless @first}}mb-5{{/unless}}">{{excerpt}}</p>
       <div class="card-time">
         <time class="date-time" datetime="{{date format="YYYY-MM-DD"}}">{{date format="YYYY年MM月DD日"}}</time>

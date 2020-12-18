@@ -81,7 +81,7 @@
       .card-post-meta-tag {
         .tag-name {
           font-size: 0.8rem;
-          color: #000;
+          color: #{var(--color-text-primary)};
           &:before {
             content: "#";
             margin-right: 0.25rem;

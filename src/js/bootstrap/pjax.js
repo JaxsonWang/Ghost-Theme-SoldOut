@@ -3,6 +3,7 @@ import prism from './prism'
 import toTop from './to-top'
 import progress from './post-progress'
 import toc from './post-toc'
+import pagination from './pagination'
 
 import { loading } from '../images'
 
@@ -10,12 +11,15 @@ export default () => {
   const pjax = new Pjax({
     elements: 'a[href]:not([href^="#"])',
     debug: false,
+    cacheBust: false,
+    history: true,
     selectors: [
       'main.ha__main'
     ]
   })
 
-  console.log(pjax)
+  // 实例化不存在的 dom
+  pjax.refresh(document.querySelector('.pagination'))
 
   // 在Pjax请求开始后触发
   document.addEventListener('pjax:send', () => {
@@ -30,6 +34,7 @@ export default () => {
 
   // 在Pjax请求完成后触发，无论失败还是成功
   document.addEventListener('pjax:complete', () => {
+    pagination()
     tooltips()
     prism()
     toTop()
