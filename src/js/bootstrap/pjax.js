@@ -4,6 +4,8 @@ import toTop from './to-top'
 import progress from './post-progress'
 import toc from './post-toc'
 import pagination from './pagination'
+import templateLinks from './template-links'
+import postShare from './post-share'
 
 import { loading } from '../images'
 
@@ -33,11 +35,13 @@ export default () => {
   // 在Pjax请求完成后触发，无论失败还是成功
   document.addEventListener('pjax:complete', () => {
     pagination()
-    tooltips()
+    postShare()
     prism()
     toTop()
     progress()
     toc()
+    tooltips()
+    templateLinks()
 
     // 加载页面搜索界面打开的问题
     const searchDom = document.querySelector('.ha__search')
@@ -51,8 +55,6 @@ export default () => {
     // // support 百度统计 / google analytics
     if (typeof _hmt !== 'undefined') _hmt.push(['_trackPageview', location.pathname + location.search])
     if (typeof ga !== 'undefined') ga('send', 'pageview', location.pathname + location.search)
-    // 实例化不存在的 dom - 导航栏
-    pjax.refresh(document.querySelector('.ha__main-post-nav .pagination'))
     // 移除 loading 动画
     setTimeout(() => {
       document.querySelector('.ha__loading').classList.remove('fade-in')

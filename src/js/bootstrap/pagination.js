@@ -1,3 +1,5 @@
+import { pjax } from './pjax'
+
 /**
  * 分页业务 - 创建
  */
@@ -49,6 +51,8 @@ const pagination = (currentPage, pageCount) => {
 
 export const sitePagination = () => {
   createPagination()
+  // 实例化不存在的 dom - 导航栏
+  pjax.refresh(document.querySelector('.ha__main-post-nav .pagination'))
 }
 
 export default sitePagination

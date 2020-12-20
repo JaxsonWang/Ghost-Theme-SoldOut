@@ -5,6 +5,10 @@
   padding: 8rem 0 4.5rem;
   min-height: 22rem;
   background-color: #000;
+  &.ha__main-hero-no-feature-image {
+    min-height: 0;
+    padding: 0;
+  }
   &-picture {
     background-image: url('https://liebling.eduardogomez.io/content/images/size/w2000/2020/03/ivana-cajina-h3YqcK2_Ut8-unsplash-1.jpg');
     position: absolute;
@@ -27,6 +31,9 @@
     .description {
       font-size: 1.25rem;
       line-height: 1.5;
+    }
+    .description-tags {
+      font-size: 1rem;
     }
   }
 
@@ -62,6 +69,9 @@
       }
       .description {
         font-size: 1.5rem;
+      }
+      .description-tags {
+        font-size: 1rem;
       }
     }
   }

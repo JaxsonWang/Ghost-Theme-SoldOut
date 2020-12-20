@@ -2,10 +2,9 @@
 {{!-- The tag above means: insert everything in this file
 into the {body} of the default.hbs template --}}
 
-
 <main class="ha__main">
   <section class="ha__main-hero d-flex justify-content-center align-items-center">
-    {{> header-background background=@site.cover_image}} {{!--Special header-background.hbs partial to generate the background image--}}
+    {{> "header-background" background=@site.cover_image}} {{!--Special header-background.hbs partial to generate the background image--}}
     <div class="ha__main-hero-content text-center">
       <h1 class="title">{{ @site.title }}</h1>
       <div class="description">{{ @site.description }}</div>
@@ -22,7 +21,5 @@ into the {body} of the default.hbs template --}}
       {{pagination}}
     </div>
   </section>
-  <div class="ha__main-to-top d-flex justify-content-center align-items-center flex-column shadow animated">
-    <i class="fas fa-chevron-up to-top-icon"></i>
-  </div>
+  {{> "site-to-top"}}
 </main>

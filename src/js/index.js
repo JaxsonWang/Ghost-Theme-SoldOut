@@ -9,17 +9,21 @@ import search from './bootstrap/search'
 import pjax from './bootstrap/pjax'
 import prefersColorScheme from './bootstrap/prefersColorScheme'
 import pagination from './bootstrap/pagination'
+import postShare from './bootstrap/post-share'
+import templateLinks from './bootstrap/template-links'
 
 // ele.scrollIntoView 兼容
 // Safari 无效需要引入 polyfill
 smoothScroll.polyfill()
 
+prefersColorScheme()
 pagination()
-tooltips()
+postShare()
 prism()
 toTop()
 progress()
 toc()
 search()
-prefersColorScheme()
+tooltips()
+templateLinks()
 pjax()
