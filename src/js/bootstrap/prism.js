@@ -1,4 +1,5 @@
 import { loadScripts, loadStyles } from '../utils'
+import toasts from '../toasts'
 
 let isRegister = false
 
@@ -79,6 +80,11 @@ export default () => {
               selection.removeAllRanges()
               selection.addRange(range)
             }
+            // 发送消息
+            toasts({
+              key: 'prism-toast',
+              content: '请按 Ctrl + C / Command + C 进行复制代码！'
+            })
           })
           return button
         })

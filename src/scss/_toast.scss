@@ -1,0 +1,25 @@
+.toast-wrapper {
+  position: fixed;
+  z-index: 1100;
+  top: 5rem;
+  right: 0;
+  &-item {
+    .toast-header {
+      img {
+        width: 1.125rem;
+        height: auto;
+      }
+    }
+  }
+}
+
+.ha__body.dark {
+  .toast-wrapper {
+    &-item {
+      background-color: #1f1f1f;
+      .toast-header {
+        background-color: #000;
+      }
+    }
+  }
+}

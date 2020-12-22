@@ -1,14 +1,20 @@
-export default (url, type = 'GET', data = {}, resType = 'json') => {
-  const options = {
+export default (options) => {
+  const initOptions = {
+    url: options.url || '',
+    type: options.type || 'GET',
+    data: options.data || {},
+    resType: options.resType || 'json'
+  }
+  const fetchOptions = {
     headers: {
       // 'content-type': 'application/json'
     },
-    method: type
+    method: initOptions.type
   }
-  if (type === 'POST' || type === 'PUT') options.body = JSON.stringify(data)
-  return fetch(url, options).then(response => {
-    let res = response.json()
-    switch (resType) {
+  if (initOptions.type === 'POST' || initOptions.type === 'PUT') fetchOptions.body = JSON.stringify(initOptions.data)
+  return fetch(initOptions.url, fetchOptions).then(response => {
+    let res = null
+    switch (initOptions.resType) {
       case 'json':
         res = response.json()
         break

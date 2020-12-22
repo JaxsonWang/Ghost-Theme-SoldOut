@@ -6,6 +6,7 @@ import toc from './post-toc'
 import pagination from './pagination'
 import templateLinks from './template-links'
 import postShare from './post-share'
+import waline from './waline'
 
 import { loading } from '../images'
 
@@ -34,6 +35,7 @@ export default () => {
 
   // 在Pjax请求完成后触发，无论失败还是成功
   document.addEventListener('pjax:complete', () => {
+    waline()
     pagination()
     postShare()
     prism()

@@ -11,12 +11,17 @@ import prefersColorScheme from './bootstrap/prefersColorScheme'
 import pagination from './bootstrap/pagination'
 import postShare from './bootstrap/post-share'
 import templateLinks from './bootstrap/template-links'
+import waLine from './bootstrap/waline'
+import musicPlayer from './bootstrap/musicplayer'
 
 // ele.scrollIntoView 兼容
 // Safari 无效需要引入 polyfill
 smoothScroll.polyfill()
 
 prefersColorScheme()
+musicPlayer()
+
+waLine()
 pagination()
 postShare()
 prism()
