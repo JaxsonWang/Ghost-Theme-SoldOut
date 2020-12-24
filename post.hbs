@@ -2,9 +2,8 @@
 
 {{!-- The tag above means: insert everything in this file
 into the {body} of the default.hbs template --}}
-
-{{#post}}
-  <main class="ha__main {{body_class}}">
+<main class="ha__main {{body_class}}">
+  {{#post}}
     {{#if feature_image}}
       <section class="ha__main-hero ha__main-hero-article d-flex justify-content-center align-items-center">
         {{> "header-background" background=feature_image}} {{!--Special header-background.hbs partial to generate the background image--}}
@@ -40,19 +39,19 @@ into the {body} of the default.hbs template --}}
                    data-bs-placement="right"
                    title="分享到微博"
                    href="https://service.weibo.com/share/share.php?title={{title}}&url={{url absolute="true"}}&pic={{feature_image}}"
-                   target="_blank"
-                   class="ha__article-share-item btn d-inline-flex justify-content-center align-items-center mt-0 mt-xl-3 mx-2 mx-xl-0 shadow"
+                target="_blank"
+                class="ha__article-share-item btn d-inline-flex justify-content-center align-items-center mt-0 mt-xl-3 mx-2 mx-xl-0 shadow"
                 >
-                  <i class="fab fa-weibo share-icon"></i>
+                <i class="fab fa-weibo share-icon"></i>
                 </a>
                 <a data-bs-toggle="tooltip"
                    data-bs-placement="right"
                    title="分享到QQ"
                    href="https://connect.qq.com/widget/shareqq/index.html?url={{url absolute="true"}}&title={{title}}&summary={{excerpt}}&pics={{feature_image}}&site={{@site.title}}"
-                   target="_blank"
-                   class="ha__article-share-item btn d-inline-flex justify-content-center align-items-center mt-0 mt-xl-3 mx-2 mx-xl-0 shadow"
+                target="_blank"
+                class="ha__article-share-item btn d-inline-flex justify-content-center align-items-center mt-0 mt-xl-3 mx-2 mx-xl-0 shadow"
                 >
-                  <i class="fab fa-qq share-icon"></i>
+                <i class="fab fa-qq share-icon"></i>
                 </a>
                 <a data-bs-toggle="tooltip"
                    data-bs-placement="right"
@@ -66,10 +65,10 @@ into the {body} of the default.hbs template --}}
                    data-bs-placement="right"
                    title="分享到 Twitter"
                    href="https://twitter.com/share?text={{title}}&url={{url absolute="true"}}"
-                   target="_blank"
-                   class="ha__article-share-item btn d-inline-flex justify-content-center align-items-center mt-0 mt-xl-3 mx-2 mx-xl-0 shadow"
+                target="_blank"
+                class="ha__article-share-item btn d-inline-flex justify-content-center align-items-center mt-0 mt-xl-3 mx-2 mx-xl-0 shadow"
                 >
-                  <i class="fab fa-twitter share-icon"></i>
+                <i class="fab fa-twitter share-icon"></i>
                 </a>
               </div>
             </div>
@@ -82,5 +81,5 @@ into the {body} of the default.hbs template --}}
     {{> "post-comment"}}
     {{> "post-read-more"}}
     {{> "post-to-top"}}
-  </main>
-{{/post}}
+  {{/post}}
+</main>

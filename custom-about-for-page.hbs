@@ -2,9 +2,8 @@
 
 {{!-- The tag above means: insert everything in this file
 into the {body} of the default.hbs template --}}
-
-{{#post}}
-  <main class="ha__main {{body_class}} custom-template custom-about-for-page">
+<main class="ha__main {{body_class}} custom-template custom-about-for-page">
+  {{#post}}
     <div class="d-flex justify-content-center align-items-center flex-column about-me-home">
       <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 about-me">
         <div class="about-me__side about-me__side--front">
@@ -39,5 +38,5 @@ into the {body} of the default.hbs template --}}
       </div>
     </div>
     {{> "site-to-top"}}
-  </main>
-{{/post}}
+  {{/post}}
+</main>
