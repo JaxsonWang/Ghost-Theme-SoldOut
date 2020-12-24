@@ -2,7 +2,7 @@
 {{!-- The tag above means: insert everything in this file
 into the {body} of the default.hbs template --}}
 
-<main class="ha__main">
+<main class="ha__main {{body_class}}">
   <section class="ha__main-hero d-flex justify-content-center align-items-center">
     {{#author}}
       {{> "header-background" background=cover_image}} {{!--Special header-background.hbs partial to generate the background image--}}

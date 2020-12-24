@@ -4,7 +4,7 @@
 into the {body} of the default.hbs template --}}
 
 {{#post}}
-  <main class="ha__main">
+  <main class="ha__main {{body_class}}">
     {{#if feature_image}}
       <section class="ha__main-hero ha__main-hero-article d-flex justify-content-center align-items-center">
         {{> "header-background" background=feature_image}} {{!--Special header-background.hbs partial to generate the background image--}}

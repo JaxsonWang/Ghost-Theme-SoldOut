@@ -25,15 +25,7 @@ export const pjax = new Pjax({
     'main.ha__main',
     '.ha__header-navbar .navbar-nav',
     '.ha__footer .ha__footer-nav'
-  ],
-  // switches: {
-  //   'body': function (oldEl, newEl, options) {
-  //     console.log('oldEl', oldEl)
-  //     console.log('newEl', newEl)
-  //     console.log('options', options)
-  //     this.onSwitch()
-  //   }
-  // }
+  ]
 })
 
 export default () => {
