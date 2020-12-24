@@ -36,9 +36,16 @@ body {
   color: #{var(--color-text-primary)};
   background-color: #{var(--background-color)};
   transition: all 250ms cubic-bezier(0.02, 0.01, 0.47, 1) 0ms;
+  position: relative;
 }
 
 .btn-check:focus+.btn,
 .btn:focus {
   box-shadow: none;
+}
+
+.tooltip {
+  .wechat-qrcode {
+    width: 200px;
+  }
 }

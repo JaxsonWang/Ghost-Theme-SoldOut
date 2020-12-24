@@ -2,20 +2,30 @@
   {{navigation type="secondary"}}
   <ul class="nav justify-content-center ha__footer-social">
     <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fab fa-qq"></i></a>
+      <a class="nav-link" href="https://qm.qq.com/cgi-bin/qm/qr?k=OSLqAxpvinqlSfrmkr_WpCF1q_OWov1x&jump_from=webapi" target="_blank" rel="nofollow noopener"><i class="fab fa-qq"></i></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fab fa-weixin"></i></a>
+      <a data-bs-toggle="tooltip"
+         data-bs-placement="top"
+         title="<img class='wechat-qrcode' src='https://cdn.jsdelivr.net/gh/JaxsonWang/jaxsonwang.github.io/images/wechat.jpg' />"
+         class="nav-link"
+      >
+        <i class="fab fa-weixin"></i>
+      </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fab fa-weibo"></i></a>
+      <a class="nav-link" href="https://weibo.com/JaxsonWang" target="_blank" rel="nofollow noopener"><i class="fab fa-weibo"></i></a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fab fa-twitter"></i></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fab fa-facebook-f"></i></a>
-    </li>
+    {{#if @site.twitter}}
+      <li class="nav-item">
+        <a class="nav-link" href="{{twitter_url @site.twitter}}" target="_blank" rel="nofollow noopener"><i class="fab fa-twitter"></i></a>
+      </li>
+    {{/if}}
+    {{#if @site.facebook}}
+      <li class="nav-item">
+        <a class="nav-link" href="{{facebook_url @site.facebook}}" target="_blank" rel="nofollow noopener"><i class="fab fa-facebook-f"></i></a>
+      </li>
+    {{/if}}
   </ul>
   <div class="w-100 d-flex justify-content-center ha__footer-copyright">
     <span>❤️ SoldOut Theme. Copyright &copy; {{date format="YYYY"}}</span>

@@ -6,7 +6,10 @@ export default () => {
   const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
   tooltipTriggerList.map(tooltipTriggerEl => {
     return new bootstrap.Tooltip(tooltipTriggerEl, {
-      html: true
+      animation: true,
+      delay: 100,
+      html: true,
+      container: 'body'
     })
   })
 }

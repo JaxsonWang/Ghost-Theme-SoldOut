@@ -17,11 +17,6 @@ export const pjax = new Pjax({
   history: true,
   selectors: [
     'title',
-    // 'meta[name]',
-    // 'meta[property]',
-    // 'link[rel=canonical]',
-    // 'link[rel=amphtml]',
-    // 'script[type=application/ld+json]',
     'main.ha__main',
     '.ha__header-navbar .navbar-nav',
     '.ha__footer .ha__footer-nav'
