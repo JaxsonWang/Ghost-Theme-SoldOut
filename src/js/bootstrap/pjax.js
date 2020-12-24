@@ -16,10 +16,24 @@ export const pjax = new Pjax({
   cacheBust: false,
   history: true,
   selectors: [
+    'title',
+    // 'meta[name]',
+    // 'meta[property]',
+    // 'link[rel=canonical]',
+    // 'link[rel=amphtml]',
+    // 'script[type=application/ld+json]',
     'main.ha__main',
     '.ha__header-navbar .navbar-nav',
     '.ha__footer .ha__footer-nav'
-  ]
+  ],
+  // switches: {
+  //   'body': function (oldEl, newEl, options) {
+  //     console.log('oldEl', oldEl)
+  //     console.log('newEl', newEl)
+  //     console.log('options', options)
+  //     this.onSwitch()
+  //   }
+  // }
 })
 
 export default () => {
