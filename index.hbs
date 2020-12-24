@@ -13,10 +13,17 @@ into the {body} of the default.hbs template --}}
   <section class="ha__main-post-list">
     <div class="container">
       <div class="ha__main-post-list-row row gy-4 mb-5">
-        {{#foreach posts}}
+        {{^is "paged"}}
+          {{#foreach posts limit="8"}}
           {{!-- The tag below includes the markup for each post - partials/post-card.hbs --}}
-          {{> "post-card"}}
-        {{/foreach}}
+            {{> "post-card"}}
+          {{/foreach}}
+        {{else}}
+          {{#foreach posts}}
+          {{!-- The tag below includes the markup for each post - partials/post-card.hbs --}}
+            {{> "post-card"}}
+          {{/foreach}}
+        {{/is}}
       </div>
       {{pagination}}
     </div>
