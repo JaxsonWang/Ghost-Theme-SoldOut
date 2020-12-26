@@ -118,6 +118,9 @@
       ul {
         margin: .8em 0;
       }
+      ul.todo-list {
+        list-style: none;
+      }
       li > ol,
       li > ul {
         margin: 0;
