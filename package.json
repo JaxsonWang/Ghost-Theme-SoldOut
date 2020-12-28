@@ -10,7 +10,7 @@
   "license": "MIT",
   "scripts": {
     "watch:dev": "webpack --config config/webpack.dev.js",
-    "build": "webpack --config config/webpack.prod.js",
+    "build": "webpack --config config/webpack.prod.js && node config/build.js",
     "eslint": "eslint src/**/*.js",
     "eslint-fix": "eslint src/**/*.js --fix"
   },
