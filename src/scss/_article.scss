@@ -13,7 +13,7 @@
     .ha__main-article-content {
       font-size: 1rem;
       &.ha__main-article-content-default {
-        font-size: 1.2rem;
+        font-size: 1rem;
       }
 
       & > ol:first-child,
@@ -72,7 +72,7 @@
         font-size: 1.75em;
         padding-left: 0.5625em;
         line-height: 1.4;
-        border-left: 0.375em solid #cce5ff;
+        border-left: 5px solid #cce5ff;
       }
       h3 {
         font-size: 1.5em;
@@ -166,7 +166,7 @@
       }
       blockquote {
         background-color: #e2f0ff;
-        border-left: 0.25em dotted #9ed0ff;
+        border-left: 5px dotted #9ed0ff;
         padding: 1em 0.8em;
         font-size: .9em;
       }
@@ -243,14 +243,13 @@
     .ha__main-article-content {
       blockquote {
         background-color: #3a3c3d;
-        border-left: 0.25em dotted #000;
+        border-left: 4px dotted #000;
       }
     }
   }
 }
 
 @media (min-width: 576px) {
-
 }
 
 @media (min-width: 768px) {
@@ -263,6 +262,14 @@
     }
     &-description {
       font-size: 1em;
+    }
+    .ha__main-article-main {
+      .ha__main-article-content {
+        font-size: 1rem;
+        &.ha__main-article-content-default {
+          font-size: 1.2rem;
+        }
+      }
     }
   }
 }

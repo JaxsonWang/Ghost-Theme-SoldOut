@@ -3,6 +3,11 @@
   padding: 5rem 0;
   background-color: #{var(--footer-background-color)};
 
+  &-meta {
+    color: #{var(--footer-text-color)};
+    text-shadow: -0.01em 0.01em #7952b3, -0.04em 0.04em #cce5ff;
+  }
+
   &-nav {
     .nav-item {
       .nav-link {
