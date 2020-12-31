@@ -7,7 +7,6 @@ export default (options) => {
   }
   const fetchOptions = {
     headers: {
-      // 'content-type': 'application/json'
     },
     method: initOptions.type
   }
