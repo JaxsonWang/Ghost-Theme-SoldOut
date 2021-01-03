@@ -9,7 +9,6 @@ function getPlayerList(playerId) {
     const infoList = await fetch({
       url: `https://api.imjad.cn/cloudmusic/?type=playlist&id=${playerId}`
     })
-    console.log(infoList)
     const newList = await Promise.all(infoList.playlist.tracks.map(async function(item) {
       const songUrl = await fetch({
         url: `https://api.imjad.cn/cloudmusic/?type=song&id=${item.id}&br=128000`
