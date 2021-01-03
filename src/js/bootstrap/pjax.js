@@ -63,12 +63,12 @@ export default () => {
     if (typeof ga !== 'undefined') ga('send', 'pageview', location.pathname + location.search)
     // header meta 信息替换
     document.head.querySelectorAll('meta').forEach(block => block.remove())
-    document.head.querySelector('script[type="application/ld+json"]').remove()
+    if (document.head.querySelector('script[type="application/ld+json"]') !== null) document.head.querySelector('script[type="application/ld+json"]').remove()
     if (document.head.querySelector('link[rel="amphtml"]') !== null) document.head.querySelector('link[rel="amphtml"]').remove()
     const tempEle = document.createElement('div')
     tempEle.innerHTML = event.request.responseText.match(/<head[^>]*>([\s\S]*)<\/head>/)[1]
     tempEle.querySelectorAll('meta').forEach(block => document.head.appendChild(block))
-    document.head.appendChild(tempEle.querySelector('script[type="application/ld+json"]'))
+    if (tempEle.querySelector('script[type="application/ld+json"]') !== null) document.head.appendChild(tempEle.querySelector('script[type="application/ld+json"]'))
     if (tempEle.querySelector('link[rel="amphtml"]') !== null) document.head.appendChild(tempEle.querySelector('link[rel="amphtml"]'))
     // 移除 loading 动画
     setTimeout(() => {
