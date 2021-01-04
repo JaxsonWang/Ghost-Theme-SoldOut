@@ -60,7 +60,6 @@ export default () => {
       playerWrapper.className = 'player-wrapper'
       document.querySelector('body').appendChild(playerWrapper)
 
-      // eslint-disable-next-line no-undef
       new APlayer({
         container: document.getElementById('player'),
         fixed: true,
