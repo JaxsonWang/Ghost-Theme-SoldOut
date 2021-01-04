@@ -1,4 +1,5 @@
 import { loadScripts, loadStyles } from '../utils'
+import baseToast from '../toasts'
 import fetch from '../fetch'
 
 /**
@@ -51,22 +52,31 @@ export default () => {
     name: 'player-js',
     path: 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js'
   }]).then(async function() {
-    const musicPlayerList = window.SoldOutConfigMusicPlayerList || '5392087441'
-    const playerList = await getPlayerList(musicPlayerList)
-    const playerWrapper = document.createElement('div')
-    playerWrapper.id = 'player'
-    playerWrapper.className = 'player-wrapper'
-    document.querySelector('body').appendChild(playerWrapper)
+    try {
+      const musicPlayerList = window.SoldOutConfigMusicPlayerList || '5392087441'
+      const playerList = await getPlayerList(musicPlayerList)
+      const playerWrapper = document.createElement('div')
+      playerWrapper.id = 'player'
+      playerWrapper.className = 'player-wrapper'
+      document.querySelector('body').appendChild(playerWrapper)
 
-    // eslint-disable-next-line no-undef
-    new APlayer({
-      container: document.getElementById('player'),
-      fixed: true,
-      lrcType: 1,
-      theme: '#ad7a86',
-      order: 'list',
-      autoplay: false,
-      audio: playerList
-    })
+      // eslint-disable-next-line no-undef
+      new APlayer({
+        container: document.getElementById('player'),
+        fixed: true,
+        lrcType: 1,
+        theme: '#ad7a86',
+        order: 'list',
+        autoplay: false,
+        audio: playerList
+      })
+    } catch (error) {
+      // 通知
+      baseToast({
+        content: error,
+        time: new Date(),
+        key: 'musicPlayerToastKey'
+      })
+    }
   })
 }
