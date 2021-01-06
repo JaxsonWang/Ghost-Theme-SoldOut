@@ -57,7 +57,7 @@ fs.readFile(`${rootDir}/partials/site-footer.hbs`, 'utf8', (err, data) => {
     .replace(/https:\/\/qm.qq.com\/cgi-bin\/qm\/qr\?k=OSLqAxpvinqlSfrmkr_WpCF1q_OWov1x&jump_from=webapi/, config.页脚扣扣链接)
     .replace(/https:\/\/cdn.jsdelivr.net\/gh\/JaxsonWang\/jaxsonwang.github.io\/images\/wechat.jpg/, config.页脚微信二维码)
     .replace(/https:\/\/weibo.com\/JaxsonWang/, config.页面微博链接)
-    .replace(/<a href="http:\/\/beian.miit.gov.cn" target="_blank" rel="nofollow noopener">苏ICP备15050739号-4<\/a>/, config.页脚自定义链接1)
+    .replace(/<a href="http:\/\/beian.miit.gov.cn" target="_blank" rel="nofollow noopener">苏ICP备15050739号<\/a>/, config.页脚自定义链接1)
     .replace(/<a href="http:\/\/www.beian.gov.cn\/portal\/registerSystemInfo?recordcode=32010402000196" target="_blank" rel="nofollow noopener">苏公网安备32010402000196号<\/a>/, config.页脚自定义链接2)
     .replace(/<a href="https:\/\/tongji.baidu.com\/web\/welcome\/ico?s=075de8ed5c2bfb5f678b1a620749aee4" target="_blank" rel="nofollow noopener">百度统计<\/a>/, config.页脚自定义链接3)
 

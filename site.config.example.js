@@ -7,7 +7,7 @@ module.exports = {
   页脚扣扣链接: 'https://qm.qq.com/cgi-bin/qm/qr?k=OSLqAxpvinqlSfrmkr_WpCF1q_OWov1x&jump_from=webapi',
   页脚微信二维码: 'https://cdn.jsdelivr.net/gh/JaxsonWang/jaxsonwang.github.io/images/wechat.jpg',
   页面微博链接: 'https://weibo.com/JaxsonWang',
-  页脚自定义链接1: '<a href="http://beian.miit.gov.cn" target="_blank" rel="nofollow noopener">苏ICP备15050739号-4</a>',
+  页脚自定义链接1: '<a href="http://beian.miit.gov.cn" target="_blank" rel="nofollow noopener">苏ICP备15050739号</a>',
   页脚自定义链接2: '<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32010402000196" target="_blank" rel="nofollow noopener">苏公网安备32010402000196号</a>',
   页脚自定义链接3: '<a href="https://tongji.baidu.com/web/welcome/ico?s=075de8ed5c2bfb5f678b1a620749aee4" target="_blank" rel="nofollow noopener">百度统计</a>',
   关于模板提示语: 'Hello World!',
