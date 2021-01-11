@@ -220,6 +220,9 @@
       pre {
         position: relative;
       }
+      p img {
+        max-width: 31.25rem;
+      }
       .pre-block-loading {
         position: absolute;
         top: 0;
@@ -271,6 +274,10 @@
           &:after {
             transform: rotate(45deg) scaleY(1);
           }
+        }
+
+        & + input {
+          display: none;
         }
       }
     }
