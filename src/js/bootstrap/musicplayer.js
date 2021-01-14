@@ -53,8 +53,34 @@ export default () => {
     path: 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js'
   }]).then(async function() {
     try {
-      const musicPlayerList = window.SoldOutConfigMusicPlayerList || '5392087441'
-      const playerList = await getPlayerList(musicPlayerList)
+      // const musicPlayerList = window.SoldOutConfigMusicPlayerList || '5392087441'
+      // const playerList = await getPlayerList(musicPlayerList)
+      const musicPlayerList = window.SoldOutConfigMusicPlayerList || [
+        {
+          name: 'Sold Out',
+          artist: 'Hawk Nelson',
+          url: 'https://cdn.jsdelivr.net/gh/JaxsonWang/jaxsonwang.github.io/music/Sold%20Out.mp3',
+          cover: 'https://cdn.jsdelivr.net/gh/JaxsonWang/jaxsonwang.github.io/music/Sold%20Out.jpeg'
+        },
+        {
+          name: 'Take Me Higher',
+          artist: 'Atmosphere Music Ltd',
+          url: 'https://cdn.jsdelivr.net/gh/JaxsonWang/jaxsonwang.github.io/music/Take%20Me%20Higher.mp3',
+          cover: 'https://cdn.jsdelivr.net/gh/JaxsonWang/jaxsonwang.github.io/music/Take%20Me%20Higher.jpg'
+        },
+        {
+          name: 'More',
+          artist: 'K/DA',
+          url: 'https://cdn.jsdelivr.net/gh/JaxsonWang/jaxsonwang.github.io/music/MORE.mp3',
+          cover: 'https://cdn.jsdelivr.net/gh/JaxsonWang/jaxsonwang.github.io/music/MORE.jpg'
+        },
+        {
+          name: '起风了',
+          artist: '买辣椒也用券',
+          url: 'https://cdn.jsdelivr.net/gh/JaxsonWang/jaxsonwang.github.io/music/%E8%B5%B7%E9%A3%8E%E4%BA%86.mp3',
+          cover: 'https://cdn.jsdelivr.net/gh/JaxsonWang/jaxsonwang.github.io/music/%E8%B5%B7%E9%A3%8E%E4%BA%86.jpg'
+        }
+      ]
       const playerWrapper = document.createElement('div')
       playerWrapper.id = 'player'
       playerWrapper.className = 'player-wrapper'
@@ -67,7 +93,7 @@ export default () => {
         theme: '#ad7a86',
         order: 'list',
         autoplay: false,
-        audio: playerList
+        audio: musicPlayerList
       })
     } catch (error) {
       // 通知
