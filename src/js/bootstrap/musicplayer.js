@@ -5,6 +5,7 @@ import fetch from '../fetch'
 /**
  * 根据歌单信息获取详细信息
  */
+// eslint-disable-next-line no-unused-vars
 function getPlayerList(playerId) {
   return new Promise(async function(resolve, reject) {
     const infoList = await fetch({
