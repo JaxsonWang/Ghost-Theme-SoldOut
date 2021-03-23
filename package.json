@@ -2,7 +2,8 @@
   "name": "sold-out",
   "version": "0.1.1",
   "engines": {
-    "ghost-api": "v3"
+    "ghost": ">=4.0.0",
+    "ghost-api": "v4"
   },
   "keywords": [
     "ghost-theme"
