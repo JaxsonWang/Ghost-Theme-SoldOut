@@ -30,6 +30,10 @@ const copyWebpackPlugin = new CopyWebpackPlugin({
       to: resolve('../sold-out')
     },
     {
+      from: resolve('../robots.txt'),
+      to: resolve('../sold-out')
+    },
+    {
       from: resolve('../site.config.js'),
       to: resolve('../sold-out')
     }
